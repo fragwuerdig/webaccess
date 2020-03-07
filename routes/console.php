@@ -37,15 +37,19 @@ Artisan::command('webuser:add', function() {
 	
 });
 
-Artisan::command('webuser:del', function() {
+Artisan::command('webuser:del {user}', function($user) {
 	
-	$password = $this->ask('Password?');
+	$result  = \webaccess\User::where('name', $user)->first();
+	if (empty($result)) {
+		$this->error('No such user existent');
+	}
+	//$password = $this->ask('Password?');
 	//User::create([
             //'name' => $username,
             //'email' => $data['email'],
             //'password' => bcrypt($data['password']),
         //]);
     //}
-	$this->info($password);
+	//$this->info($password);
 	
 });
