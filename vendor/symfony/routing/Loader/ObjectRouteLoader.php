@@ -55,14 +55,14 @@ abstract class ObjectRouteLoader extends Loader
         $loaderObject = $this->getServiceObject($serviceString);
 
         if (!\is_object($loaderObject)) {
-            throw new \LogicException(sprintf('%s:getServiceObject() must return an object: %s returned', \get_class($this), \gettype($loaderObject)));
+            throw new \LogicException(sprintf('%s:getServiceObject() must return an object: %s returned', static::class, \gettype($loaderObject)));
         }
 
         if (!method_exists($loaderObject, $method)) {
             throw new \BadMethodCallException(sprintf('Method "%s" not found on "%s" when importing routing resource "%s"', $method, \get_class($loaderObject), $resource));
         }
 
-        $routeCollection = \call_user_func(array($loaderObject, $method), $this);
+        $routeCollection = \call_user_func([$loaderObject, $method], $this);
 
         if (!$routeCollection instanceof RouteCollection) {
             $type = \is_object($routeCollection) ? \get_class($routeCollection) : \gettype($routeCollection);
