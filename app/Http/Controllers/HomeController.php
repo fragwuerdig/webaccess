@@ -77,11 +77,37 @@ class HomeController extends Controller
 	public function aliases()
     {
 		
+		$domains = \webaccess\VirtualDomain::all();
 		$aliases = \webaccess\VirtualAlias::all();
 		foreach ($aliases as $alias){
 			$alias->destination = explode(',', $alias->destination);
 		}
-		return view('aliases')->with(['aliases' => $aliases]);
+		return view('aliases')->with(['aliases' => $aliases])->with('domains', $domains);
+	}
+	
+	public function aliases_add(Request $request)
+	{
+		
+		$post = $request->all();
+		$domain = $post['domain'];
+		$source = $post['source'];
+		$destination = $post['destination'];
+		$existing_alias = \webaccess\VirtualAlias::where('source', $source . "@" . $domain)->get();
+		$domain = \webaccess\VirtualDomain::where('name', $domain)->first();
+
+		if ($existing_alias->isEmpty()) {
+			$alias = new \webaccess\VirtualAlias;
+			$alias->domain = $domain->id;
+			$alias->source = $source . "@" . $domain->name;
+			$alias->destination = $destination;
+		} else {
+			$alias = $existing_alias->first();
+			$alias->destination = $alias->destination . "," . $destination;
+		}
+			
+		$alias->save();
+		return redirect()->route('aliases');
+		
 	}
 	
 	public function logout(Request $request)
@@ -92,3 +118,4 @@ class HomeController extends Controller
 	
 	}
 }
+

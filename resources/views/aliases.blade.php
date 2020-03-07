@@ -20,36 +20,57 @@
 						</thead>
 						
 						<tbody>
-							<form class="form-vertical">
 								@foreach($aliases as $alias)
 									@foreach($alias['destination'] as $dest)
 										<tr>
 											@if(array_search($dest, $alias['destination']) === 0)
-												<td style ="vertical-align:middle" rowspan="{{ count($alias['destination']) + 1 }}"> {{ $alias->id }} </td>
+												<td style ="vertical-align:middle" rowspan="{{ count($alias['destination']) }}"> {{ $alias->id }} </td>
 											@endif
 											@if(array_search($dest, $alias['destination']) === 0)
-												<td style ="vertical-align:middle" rowspan="{{ count($alias['destination']) + 1 }}"> {{ $alias->source }} </td>
+												<td style ="vertical-align:middle" rowspan="{{ count($alias['destination']) }}"> {{ $alias->source }} </td>
 											@endif
 											<td style ="vertical-align:middle"> {{ $dest }} </td>
-											<td><button class="btn btn-danger">-</button></td>
+											<td><button class="btn btn-danger"> Delete </button></td>
 										</tr>
 									@endforeach
-									
-										<tr>
-											<td style ="vertical-align:middle">
-												<div class="form-group"><input class="form-control" method="post" id="source" name="source"></div>
-											</td>
-											<td>
-												<div class="form-group"><button type="submit" class="btn btn-success">+</button></div>
-											</td>
-										</tr>
-									
 								@endforeach
-							</form>
 						</tbody>
 						
                     </table>
                     
+                </div>
+            </div>
+            
+             <div class="panel panel-default">
+                <div class="panel-heading">Add an Alias</div>
+
+                <div class="panel-body">
+					<form class="form-horizontal" method="POST" action="{{ route('aliases_add') }}">
+						{{ csrf_field() }}
+						<div class="form-group">
+							<label for="source"  class="col-md-4 control-label"> Source Name </label>
+							<div class="col-md-6">
+								<input class="form-control" method="post" id="source" name="source" required="required">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="domain"  class="col-md-4 control-label"> @ </label>
+							<div class="col-md-6">
+								 <select id="domain" class="form-control" name="domain">
+									@foreach($domains as $domain)
+										<option value="{{ $domain->name }}">{{ $domain->name }}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="source"  class="col-md-4 control-label"> Destination </label>
+							<div class="col-md-4">
+								<input class="form-control" method="post" id="source" name="destination" type="email" required="required">
+							</div>
+							<div class="col-md-2"><button type="submit" class="btn btn-success"> Add </button></div>
+						</div>
+					</form>
                 </div>
             </div>
         </div>
