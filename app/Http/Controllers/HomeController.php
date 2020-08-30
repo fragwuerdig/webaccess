@@ -52,7 +52,7 @@ class HomeController extends Controller
 		$user =  new \webaccess\VirtualUser;
 		$user->email = $post['name'] . "@" . $post['domain'];
 		$user->domain = $domain->id;
-		$user->password = bcrypt($post['password']);
+		$user->password = trim(shell_exec('doveadm pw -p ' . $post['password'] . ' -s SHA256-CRYPT'));
 		$user->save();
 		
 		return redirect()->route('users');
@@ -64,7 +64,7 @@ class HomeController extends Controller
 		
 		$post = $request->all();
 		$password = $post['password'];
-		$password = bcrypt($password);
+		$password = trim(shell_exec('doveadm pw -p ' . $password . ' -s SHA256-CRYPT'));
 		
 		$user = \webaccess\VirtualUser::find($id);
 		$user->password = $password;
