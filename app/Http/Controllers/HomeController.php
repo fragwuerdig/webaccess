@@ -25,6 +25,13 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    private function passwd($passwd)
+    {
+	$salt = '$5$' . bin2hex(random_bytes(16));
+	$hash = crypt($passwd, $salt);
+	return '{SHA256-CRYPT}'.$hash;
+    }
     
     public function users()
     {
@@ -52,7 +59,7 @@ class HomeController extends Controller
 		$user =  new \webaccess\VirtualUser;
 		$user->email = $post['name'] . "@" . $post['domain'];
 		$user->domain = $domain->id;
-		$user->password = trim(shell_exec('doveadm pw -p ' . $post['password'] . ' -s SHA256-CRYPT'));
+		$user->password = $this->passwd($post['password']);
 		$user->save();
 		
 		return redirect()->route('users');
@@ -64,7 +71,7 @@ class HomeController extends Controller
 		
 		$post = $request->all();
 		$password = $post['password'];
-		$password = trim(shell_exec('doveadm pw -p ' . $password . ' -s SHA256-CRYPT'));
+		$password = $this->passwd($password); 
 		
 		$user = \webaccess\VirtualUser::find($id);
 		$user->password = $password;
