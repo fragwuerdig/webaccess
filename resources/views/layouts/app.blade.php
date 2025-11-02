@@ -66,7 +66,18 @@
                                     </form>
                                 </div>
                             </li>
-                        @endguest
+			    @endguest
+
+
+			    <li class="nav-item">
+        <a class="nav-link" href="{{ route('users') }}">Users</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('aliases') }}">Aliases</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/home') }}">Home</a>
+    </li>
                     </ul>
                 </div>
             </div>

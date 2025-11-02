@@ -45,7 +45,7 @@ Route::post('/users/passwd/{id}', [HomeController::class, 'users_passwd'])->name
 Route::post('/aliases/add', [HomeController::class, 'aliases_add'])->name('aliases_add');
 Route::post('/aliases/delete/{id}', [HomeController::class, 'aliases_delete'])->name('aliases_delete');
 Route::get('/aliases', [HomeController::class, 'aliases'])->name('aliases');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
