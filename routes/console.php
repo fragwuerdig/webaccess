@@ -25,7 +25,7 @@ Artisan::command('webuser:add', function() {
 	$password = $this->secret('Password?');
 	$retype = $this->secret('Password again?');
 	if ($password === $retype){
-		$user = new \App\User;
+		$user = new \webaccess\User;
 		$user->name = $username;
 		$user->email = '';
 		$user->password = bcrypt($password);
