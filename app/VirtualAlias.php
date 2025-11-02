@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class VirtualAlias extends Model
 {
 	
-    protected $table = 'virtual_aliases';
+    protected $table = 'VirtualAlias';
 	public $timestamps = false;
 }
