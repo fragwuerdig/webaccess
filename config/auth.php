@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => webaccess\User::class,
+            'model' => App\User::class,
         ],
 
         // 'users' => [

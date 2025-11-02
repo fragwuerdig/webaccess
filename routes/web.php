@@ -31,21 +31,21 @@
 	
 //})->name('logout');
 
-Auth::routes();
 
-Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/users', 'HomeController@users')->name('users');
-Route::get('/users/delete/{id}', 'HomeController@users_delete')->name('users_delete');
-Route::post('/users/create', 'HomeController@users_create')->name('users_create');
-Route::post('/users/passwd/{id}', 'HomeController@users_passwd')->name('users_passwd');
-Route::post('/aliases/add', 'HomeController@aliases_add')->name('aliases_add');
-Route::post('/aliases/delete/{id}', 'HomeController@aliases_delete')->name('aliases_delete');
-Route::get('/aliases', 'HomeController@aliases')->name('aliases');
-Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
 
 
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/users', [HomeController::class, 'users'])->name('users');
+Route::get('/users/delete/{id}', [HomeController::class, 'users_delete'])->name('users_delete');
+Route::post('/users/create', [HomeController::class, 'users_create'])->name('users_create');
+Route::post('/users/passwd/{id}', [HomeController::class, 'users_passwd'])->name('users_passwd');
+Route::post('/aliases/add', [HomeController::class, 'aliases_add'])->name('aliases_add');
+Route::post('/aliases/delete/{id}', [HomeController::class, 'aliases_delete'])->name('aliases_delete');
+Route::get('/aliases', [HomeController::class, 'aliases'])->name('aliases');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

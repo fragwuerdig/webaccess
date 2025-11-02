@@ -25,7 +25,7 @@ Artisan::command('webuser:add', function() {
 	$password = $this->secret('Password?');
 	$retype = $this->secret('Password again?');
 	if ($password === $retype){
-		$user = new \webaccess\User;
+		$user = new \App\User;
 		$user->name = $username;
 		$user->email = '';
 		$user->password = bcrypt($password);
@@ -39,7 +39,7 @@ Artisan::command('webuser:add', function() {
 
 Artisan::command('webuser:del {user}', function($user) {
 	
-	$result  = \webaccess\User::where('name', $user)->first();
+	$result  = \App\User::where('name', $user)->first();
 	if (empty($result)) {
 		$this->error('No such user existent');
 	}
