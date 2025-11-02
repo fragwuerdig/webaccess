@@ -1,10 +1,8 @@
 <?php
 
-namespace webaccess\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use webaccess\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -22,7 +20,6 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-
     /**
      * Where to redirect users after login.
      *
@@ -37,22 +34,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-		
         $this->middleware('guest')->except('logout');
-    
+        $this->middleware('auth')->only('logout');
     }
-    
-    public function username(){
-		
-		return 'name';
-		
-	}
-	
-	public function logout(){
-		
-		Auth::logout();
-		return redirect()->route('home');	
-		
-	}
-    
 }
