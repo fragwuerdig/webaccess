@@ -40,6 +40,7 @@ Route::get('/users/delete/{id}', 'HomeController@users_delete')->name('users_del
 Route::post('/users/create', 'HomeController@users_create')->name('users_create');
 Route::post('/users/passwd/{id}', 'HomeController@users_passwd')->name('users_passwd');
 Route::post('/aliases/add', 'HomeController@aliases_add')->name('aliases_add');
+Route::get('/aliases/delete/{id}', 'HomeController@aliases_delete')->name('aliases_delete');
 Route::get('/aliases', 'HomeController@aliases')->name('aliases');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
