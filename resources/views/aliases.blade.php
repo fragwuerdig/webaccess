@@ -30,7 +30,12 @@
 												<td style ="vertical-align:middle" rowspan="{{ count($alias['destination']) }}"> {{ $alias->source }} </td>
 											@endif
 											<td style ="vertical-align:middle"> {{ $dest }} </td>
-											<td><button class="btn btn-danger" formaction="{{ route('aliases_delete', $alias->id) }}"> Delete </button></td>
+											<td>
+												<form method="POST" action="{{ route('aliases_delete', $alias->id) }}">
+													{{ csrf_field() }}
+													<button type="submit" class="btn btn-danger btn-sm"> Delete </button>
+												</form>
+											</td>
 										</tr>
 									@endforeach
 								@endforeach

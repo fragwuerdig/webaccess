@@ -116,6 +116,15 @@ class HomeController extends Controller
 		return redirect()->route('aliases');
 		
 	}
+
+	public function aliases_delete($id)
+	{
+		
+		$alias = \App\VirtualAlias::find($id);
+		$alias->delete();
+		return redirect()->route('aliases');
+		
+	}
 	
 	public function logout(Request $request)
 	{
